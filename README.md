@@ -62,3 +62,31 @@
 9. После завершения работ над задением отправить ментору количество затраченного времени на практическое выполнение задачи.
 
 ---
+
+---
+## II. Верстка
+---
+### Теоретическая часть
+
+**1. Верстка:**
++ [Introduction to widgets](https://flutter.dev/docs/development/ui/widgets-intro)  **(\*\*\*\*)**
++ [Layouts in Flutter](https://flutter.dev/docs/development/ui/layout)  **(\*\*\*\*)**
++ [Introduction to animations](https://flutter.dev/docs/development/ui/animations)  **(\*\*\*\*)**
+
+**2. Полезные ресурсы**
++ [Flutter Layout Cheat Sheet](https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e)  **(\*\*)**
++ [Flutter by Example](https://www.flutterbyexample.com/)  **(\*\*)**
++ [Code style](https://fuchsia.dev/fuchsia-src/development/languages/dart/style)  **(\*\*)**
++ [Разработка UI с помощью Flutter](https://habr.com/ru/post/433256/)  **(\*)**
++ [Flutter. Часть 4. Для веб-разработчиков](https://habr.com/ru/company/funcorp/blog/486822/)  **(\*)**
+
+
+### Практическое задание
+1. Ознакомиться с макетом Quiz App: https://dribbble.com/shots/6508352-Quiz-App-UI-Oma
+2. Декомпозировать задачу верстки на виджеты, завести соответствующий чек-лист на карточке в Trello
+3. Выполнить верстку виджетов и экрана в соответствии с макетом
+4. Запустить проект на телефоне/симуляторе
+5. Следуя [git flow](https://habr.com/post/106912/) закоммитить изменения на remote-сервер, создать MR, назначить его на ментора
+6. После завершения работ над задением отправить ментору количество затраченного времени на практическое выполнение задачи.
+
+---
