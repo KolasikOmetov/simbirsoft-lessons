@@ -11,7 +11,7 @@ class _NextButtonState extends State<NextButton> {
     return GestureDetector(
       child: FractionallySizedBox(
         widthFactor: 0.4,
-        heightFactor: 0.7,
+        heightFactor: 0.4,
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15), color: Colors.pink[400]),

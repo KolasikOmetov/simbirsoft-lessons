@@ -11,7 +11,7 @@ class _ProgressBarState extends State<ProgressBar> {
     return Container(
       child: Center(
         child: FractionallySizedBox(
-          widthFactor: 0.8,
+          widthFactor: 1,
           heightFactor: 0.4,
           child: Container(
             decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class _ProgressBarState extends State<ProgressBar> {
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "30",
-                      style: Theme.of(context).accentTextTheme.caption,
+                      style: Theme.of(context).textTheme.caption,
                     ),
                   ),
                 ),

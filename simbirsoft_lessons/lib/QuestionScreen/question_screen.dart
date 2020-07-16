@@ -12,24 +12,26 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: <Widget>[
-        Expanded(
-          child: ProgressBar(),
-          flex: 1,
-        ),
-        Expanded(
-          child: QuestionBox(),
-          // child: Container(
-          //   color: Colors.blue,
-          // ),
-          flex: 8,
-        ),
-        Expanded(
-          child: NextButton(),
-          flex: 1,
-        )
-      ],
-    ));
+        body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ProgressBar(),
+                  flex: 1,
+                ),
+                Expanded(
+                  child: QuestionBox(),
+                  // child: Container(
+                  //   color: Colors.blue,
+                  // ),
+                  flex: 7,
+                ),
+                Expanded(
+                  child: NextButton(),
+                  flex: 2,
+                )
+              ],
+            )));
   }
 }
