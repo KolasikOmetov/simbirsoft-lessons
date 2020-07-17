@@ -22,9 +22,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 ),
                 Expanded(
                   child: QuestionBox(),
-                  // child: Container(
-                  //   color: Colors.blue,
-                  // ),
                   flex: 7,
                 ),
                 Expanded(

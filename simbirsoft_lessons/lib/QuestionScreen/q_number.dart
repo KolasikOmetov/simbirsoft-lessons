@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/circle_timer.dart';
+import 'package:simbirsoft_lessons/QuestionScreen/clock.dart';
 
 class QNumber extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class QNumber extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text('Question 1/10', style: Theme.of(context).textTheme.headline5),
-          CircleTimer(time: 15)
+          Clock(35)
         ],
       ),
     );
