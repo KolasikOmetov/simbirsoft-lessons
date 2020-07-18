@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NextButton extends StatefulWidget {
+  final Function() notifyParent;
+
+  NextButton(this.notifyParent);
+
   @override
   _NextButtonState createState() => _NextButtonState();
 }
@@ -23,6 +27,9 @@ class _NextButtonState extends State<NextButton> {
           ),
         ),
       ),
+      onTap: () {
+        widget.notifyParent();
+      },
     );
   }
 }

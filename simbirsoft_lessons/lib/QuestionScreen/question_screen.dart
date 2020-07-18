@@ -54,7 +54,29 @@ class _QuestionScreenState extends State<QuestionScreen> {
         answers: ["Средний палец", "Жёлтую карточку", "Паспорт"],
         rightAnswerNum: 2,
         difficalty: 1),
+    Question(
+        text: 'Какой рубрики в разделе объявлений не существует?',
+        answers: ["Одену", "Сниму", "Продам"],
+        rightAnswerNum: 1,
+        difficalty: 1),
+    Question(
+        text:
+            'В роли какого автомобильного устройства выступает по отношению к торговле реклама?',
+        answers: ["Глушителя", "Двигателя", "Тормоза"],
+        rightAnswerNum: 2,
+        difficalty: 1),
   ];
+
+  int curQuest = 0;
+
+  void refresh() {
+    setState(() {
+      if (curQuest < questions.length - 1) {
+        curQuest++;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +89,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   flex: 1,
                 ),
                 Expanded(
-                  child: QuestionBox(),
+                  child: QuestionBox(questions[curQuest], curQuest),
                   flex: 7,
                 ),
                 Expanded(
-                  child: NextButton(),
+                  child: NextButton(refresh),
                   flex: 2,
                 )
               ],
