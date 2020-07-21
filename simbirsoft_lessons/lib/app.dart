@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'QuestionScreen/question_screen.dart';
+import 'question_screen/question_screen.dart';
 
 class App extends StatelessWidget {
   @override

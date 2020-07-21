@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/clock.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/q_answers.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/q_number.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/q_text.dart';
+import 'package:simbirsoft_lessons/question_screen/clock.dart';
+import 'package:simbirsoft_lessons/question_screen/q_answers.dart';
+import 'package:simbirsoft_lessons/question_screen/q_number.dart';
+import 'package:simbirsoft_lessons/question_screen/q_text.dart';
 import 'package:simbirsoft_lessons/model/question.dart';
 
 class QuestionBox extends StatelessWidget {
@@ -30,7 +30,7 @@ class QuestionBox extends StatelessWidget {
         ),
         Expanded(
           child: QText(question.text),
-          flex: 3,
+          flex: 2,
         ),
         Expanded(
           child: QAnswers(question.answers),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simbirsoft_lessons/QuestionScreen/circle_timer.dart';
+import 'package:simbirsoft_lessons/question_screen/circle_timer.dart';
 
 class Clock extends StatefulWidget {
   final int time;
