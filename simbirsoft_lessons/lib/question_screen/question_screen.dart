@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:simbirsoft_lessons/model/question.dart';
 import 'next_button.dart';
 import 'progress_bar.dart';
@@ -10,6 +11,14 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp
+    ]);
+  }
+
   final List<Question> questions = [
     Question(
         text: 'Какой запрет реже всего нарушают российские граждане?',

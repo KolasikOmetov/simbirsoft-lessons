@@ -21,9 +21,11 @@ class _AnswerBoxState extends State<AnswerBox> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
-              widget.answer,
-              style: Theme.of(context).textTheme.bodyText2,
+            Expanded(
+              child: Text(
+                widget.answer,
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
             ),
             Icon(Icons.blur_circular, color: Colors.white),
           ],
