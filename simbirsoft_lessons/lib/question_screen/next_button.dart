@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 
-class NextButton extends StatefulWidget {
+class NextButton extends StatelessWidget {
   final Function() notifyParent;
+  final Function() checkAnswer;
 
-  NextButton(this.notifyParent);
+  NextButton(this.notifyParent, this.checkAnswer);
 
-  @override
-  _NextButtonState createState() => _NextButtonState();
-}
-
-class _NextButtonState extends State<NextButton> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: FractionallySizedBox(
@@ -28,7 +23,8 @@ class _NextButtonState extends State<NextButton> {
         ),
       ),
       onTap: () {
-        widget.notifyParent();
+        checkAnswer();
+        notifyParent();
       },
     );
   }

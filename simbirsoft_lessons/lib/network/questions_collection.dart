@@ -22,8 +22,8 @@ class QuestionsCollection {
   void _getAllQ() async {
     try {
       _easyQ = _restClient.getEasyQuestions();
-      _mediumQ = _restClient.getEasyQuestions();
-      _hardQ = _restClient.getEasyQuestions();
+      _mediumQ = _restClient.getMediumQuestions();
+      _hardQ = _restClient.getHardQuestions();
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
     }
@@ -50,6 +50,7 @@ class QuestionsCollection {
           difficalty: _getDifficalty(item.difficulty),
           rightAnswerNum: rightAnswerNum));
     }
+    print('Length: ${allQ.length}');
     return allQ;
   }
 

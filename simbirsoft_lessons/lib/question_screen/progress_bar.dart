@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
+  final int curScore;
+  final int maxScore;
+
+  const ProgressBar(this.curScore, this.maxScore);
+
   @override
   _ProgressBarState createState() => _ProgressBarState();
 }
@@ -17,7 +22,7 @@ class _ProgressBarState extends State<ProgressBar> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: Colors.deepPurple[300]),
-            child: FittedBox(
+            child: FractionallySizedBox(
               alignment: Alignment.centerLeft,
               child: Container(
                 child: Align(
@@ -25,19 +30,19 @@ class _ProgressBarState extends State<ProgressBar> {
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      "30",
+                      "${widget.curScore}",
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ),
                 ),
-                height: 20,
-                width: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     gradient: LinearGradient(
                         // begin: Alignment.centerLeft,
                         colors: [Colors.pink[400], Colors.red[600]])),
               ),
+              heightFactor: 1,
+              widthFactor: widget.curScore / widget.maxScore,
             ),
           ),
         ),

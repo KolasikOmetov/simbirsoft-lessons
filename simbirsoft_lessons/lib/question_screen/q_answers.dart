@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:simbirsoft_lessons/question_screen/answer_box.dart';
 
-class QAnswers extends StatelessWidget {
+class QAnswers extends StatefulWidget {
   final List<String> answers;
 
-  QAnswers(this.answers);
+  QAnswers(this.answers, {Key key}) : super(key: key);
+
+  @override
+  _QAnswersState createState() => _QAnswersState();
+}
+
+class _QAnswersState extends State<QAnswers> {
+  int numChosen = -1;
+
+  void setChosen(int number) {
+    setState(() {
+      numChosen = number;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: answers.length,
+      itemCount: widget.answers.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.all(8.0),
-        child: AnswerBox(answer: answers[index]),
+        child: AnswerBox(
+            answer: widget.answers[index],
+            setChosen: setChosen,
+            number: index,
+            numChosen: numChosen),
       ),
     );
   }

@@ -8,8 +8,9 @@ import 'package:simbirsoft_lessons/model/question.dart';
 class QuestionBox extends StatelessWidget {
   final Question question;
   final int curQuest;
+  final int amount;
 
-  QuestionBox(this.question, this.curQuest);
+  QuestionBox(this.question, this.curQuest, this.amount);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class QuestionBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                QNumber(curQuest),
+                QNumber(curQuest: curQuest, amount: amount),
                 Clock(question.difficalty * 10 + 5)
               ],
             ),
@@ -34,7 +35,7 @@ class QuestionBox extends StatelessWidget {
         ),
         Expanded(
           child: QAnswers(question.answers),
-          flex: 3,
+          flex: 5,
         )
       ],
     );

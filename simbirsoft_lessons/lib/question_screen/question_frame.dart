@@ -14,8 +14,16 @@ class QuestionFrame extends StatefulWidget {
 }
 
 class _QuestionFrameState extends State<QuestionFrame> {
-
   int curQuest = 0;
+  int curScore = 0;
+
+  int getMaxScore() {
+    int maxScore = 0;
+    for (var item in widget._collection.allQ) {
+      maxScore += 5 * item.difficalty;
+    }
+    return maxScore;
+  }
 
   void refresh() {
     setState(() {
@@ -25,25 +33,28 @@ class _QuestionFrameState extends State<QuestionFrame> {
     });
   }
 
+  void checkAnswer() {}
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: ProgressBar(),
-                  flex: 1,
-                ),
-                Expanded(
-                  child: QuestionBox(widget._collection.allQ[curQuest], curQuest),
-                  flex: 7,
-                ),
-                Expanded(
-                  child: NextButton(refresh),
-                  flex: 2,
-                )
-              ],
-            ));
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ProgressBar(curScore, getMaxScore()),
+              flex: 1,
+            ),
+            Expanded(
+              child: QuestionBox(widget._collection.allQ[curQuest], curQuest,
+                  widget._collection.allQ.length),
+              flex: 8,
+            ),
+            Expanded(
+              child: NextButton(refresh, checkAnswer),
+              flex: 2,
+            )
+          ],
+        ));
   }
 }

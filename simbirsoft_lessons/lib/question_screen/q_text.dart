@@ -8,6 +8,6 @@ class QText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Text(text, style: Theme.of(context).textTheme.bodyText1));
+        child: Text(text, style: Theme.of(context).textTheme.headline6));
   }
 }
