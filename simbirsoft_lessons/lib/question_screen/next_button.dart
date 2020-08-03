@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
-  final Function() notifyParent;
   final Function() checkAnswer;
 
-  NextButton(this.notifyParent, this.checkAnswer);
+  NextButton(this.checkAnswer);
 
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,7 +23,6 @@ class NextButton extends StatelessWidget {
       ),
       onTap: () {
         checkAnswer();
-        notifyParent();
       },
     );
   }

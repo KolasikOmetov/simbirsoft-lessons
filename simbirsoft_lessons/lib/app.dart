@@ -13,7 +13,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: Colors.deepPurple[800],
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
-          caption: TextStyle(fontSize: 7, color: Colors.white),
+          caption: TextStyle(fontSize: 10, color: Colors.white),
           headline5: TextStyle(color: Colors.yellow, fontSize: 25),
           headline6: TextStyle(color: Colors.white, fontSize: 20),
           bodyText1: TextStyle(fontSize: 17, color: Colors.deepPurple[300]),

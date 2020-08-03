@@ -4,10 +4,13 @@ class AnswerBox extends StatefulWidget {
   final String answer;
   final int number;
   final int numChosen;
-  final Function(int) setChosen;
+  final Function(int) setGlobalChosen;
 
   AnswerBox(
-      {@required this.answer, this.number, this.setChosen, this.numChosen});
+      {@required this.answer,
+      this.number,
+      this.numChosen,
+      this.setGlobalChosen});
 
   @override
   _AnswerBoxState createState() => _AnswerBoxState();
@@ -19,7 +22,7 @@ class _AnswerBoxState extends State<AnswerBox> {
     bool isChosen = widget.number == widget.numChosen;
     return GestureDetector(
       onTap: () {
-        widget.setChosen(widget.number);
+        widget.setGlobalChosen(widget.number);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -34,10 +37,13 @@ class _AnswerBoxState extends State<AnswerBox> {
               Expanded(
                 child: Text(
                   widget.answer,
-                  style: isChosen ? Theme.of(context).textTheme.bodyText1 : Theme.of(context).textTheme.bodyText2,
+                  style: isChosen
+                      ? Theme.of(context).textTheme.bodyText1
+                      : Theme.of(context).textTheme.bodyText2,
                 ),
               ),
-              Icon(isChosen ? Icons.check_circle : Icons.blur_circular, color: isChosen ? Colors.deepPurple[300] : Colors.white),
+              Icon(isChosen ? Icons.check_circle : Icons.blur_circular,
+                  color: isChosen ? Colors.deepPurple[300] : Colors.white),
             ],
           ),
         ),

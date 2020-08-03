@@ -9,8 +9,14 @@ class QuestionBox extends StatelessWidget {
   final Question question;
   final int curQuest;
   final int amount;
+  final int numChosen;
+  final Function(int) setGlobalChosen;
+  final Function refresh;
+  final double progressAnimation;
+  final Function(double) setProgress;
 
-  QuestionBox(this.question, this.curQuest, this.amount);
+  QuestionBox(this.question, this.curQuest, this.amount, this.setGlobalChosen,
+      this.numChosen, this.refresh, this.progressAnimation, this.setProgress);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,8 @@ class QuestionBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 QNumber(curQuest: curQuest, amount: amount),
-                Clock(question.difficalty * 10 + 5)
+                Clock(question.difficalty * 10 + 5, refresh, progressAnimation,
+                    setProgress)
               ],
             ),
           ),
@@ -34,7 +41,7 @@ class QuestionBox extends StatelessWidget {
           flex: 2,
         ),
         Expanded(
-          child: QAnswers(question.answers),
+          child: QAnswers(question.answers, setGlobalChosen, numChosen),
           flex: 5,
         )
       ],

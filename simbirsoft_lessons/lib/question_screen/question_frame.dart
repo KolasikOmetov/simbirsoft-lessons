@@ -16,6 +16,8 @@ class QuestionFrame extends StatefulWidget {
 class _QuestionFrameState extends State<QuestionFrame> {
   int curQuest = 0;
   int curScore = 0;
+  int numChosen = -1;
+  double progressAnimation = 0;
 
   int getMaxScore() {
     int maxScore = 0;
@@ -26,14 +28,38 @@ class _QuestionFrameState extends State<QuestionFrame> {
   }
 
   void refresh() {
-    setState(() {
-      if (curQuest < widget._collection.allQ.length - 1) {
+    if (curQuest < widget._collection.allQ.length - 1) {
+      setProgressTimer(0);
+      setState(() {
         curQuest++;
-      }
-    });
+        numChosen = -1;
+      });
+    } else {
+      // go to the score screen
+    }
   }
 
-  void checkAnswer() {}
+  void setGlobalChosen(int number) {
+    if (number != numChosen) {
+      setState(() {
+        numChosen = number;
+      });
+    }
+  }
+
+  void checkAnswer() {
+    if (numChosen == -1) {
+      return;
+    }
+    if (numChosen + 1 == widget._collection.allQ[curQuest].rightAnswerNum) {
+      curScore += widget._collection.allQ[curQuest].difficalty * 5;
+    }
+    refresh();
+  }
+
+  void setProgressTimer(double val) {
+    progressAnimation = val;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +72,19 @@ class _QuestionFrameState extends State<QuestionFrame> {
               flex: 1,
             ),
             Expanded(
-              child: QuestionBox(widget._collection.allQ[curQuest], curQuest,
-                  widget._collection.allQ.length),
+              child: QuestionBox(
+                  widget._collection.allQ[curQuest],
+                  curQuest,
+                  widget._collection.allQ.length,
+                  setGlobalChosen,
+                  numChosen,
+                  refresh,
+                  progressAnimation,
+                  setProgressTimer),
               flex: 8,
             ),
             Expanded(
-              child: NextButton(refresh, checkAnswer),
+              child: NextButton(checkAnswer),
               flex: 2,
             )
           ],
