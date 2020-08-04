@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'question_screen/question_screen.dart';
 
 class App extends StatelessWidget {
@@ -14,6 +13,9 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
           caption: TextStyle(fontSize: 10, color: Colors.white),
+          headline1:
+              TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+          headline3: TextStyle(color: Colors.white),
           headline5: TextStyle(color: Colors.yellow, fontSize: 25),
           headline6: TextStyle(color: Colors.white, fontSize: 20),
           bodyText1: TextStyle(fontSize: 17, color: Colors.deepPurple[300]),

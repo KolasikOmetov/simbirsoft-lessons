@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simbirsoft_lessons/network/questions_collection.dart';
+import 'package:simbirsoft_lessons/score_screen/score_screen.dart';
 import 'next_button.dart';
 import 'progress_bar.dart';
 import 'question_box.dart';
@@ -35,7 +36,11 @@ class _QuestionFrameState extends State<QuestionFrame> {
         numChosen = -1;
       });
     } else {
-      // go to the score screen
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ScoreScreen(curScore, getMaxScore()),
+        ),
+      );
     }
   }
 
