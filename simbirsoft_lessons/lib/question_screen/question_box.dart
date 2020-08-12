@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/data/model/question.dart';
 import 'package:simbirsoft_lessons/question_screen/clock.dart';
 import 'package:simbirsoft_lessons/question_screen/q_answers.dart';
 import 'package:simbirsoft_lessons/question_screen/q_number.dart';
 import 'package:simbirsoft_lessons/question_screen/q_text.dart';
-import 'package:simbirsoft_lessons/model/question.dart';
 
 class QuestionBox extends StatelessWidget {
   final Question question;

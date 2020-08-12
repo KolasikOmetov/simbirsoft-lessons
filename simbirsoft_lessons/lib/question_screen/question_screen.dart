@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simbirsoft_lessons/network/questions_collection.dart';
+import 'package:simbirsoft_lessons/data/repository/questions_repository.dart';
 import 'package:simbirsoft_lessons/question_screen/question_frame.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
-  final QuestionsCollection collection = QuestionsCollection();
+  final QuestionsRepository repository = QuestionsRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,18 @@ class _QuestionScreenState extends State<QuestionScreen> {
         if (projectSnap.connectionState == ConnectionState.none &&
             projectSnap.hasData == null) {
           print('project snapshot data is: ${projectSnap.data}');
-          return Center(child: Text('Fail to fetch data'));
+          return Center(child: Text('Fail to fetch data((('));
+        }
+        if (projectSnap.hasError) {
+          return Center(child: Text("Network error!"));
         }
         if (projectSnap.connectionState == ConnectionState.waiting) {
           return Center(
               child: CircularProgressIndicator(backgroundColor: Colors.yellow));
         }
-        return QuestionFrame(collection);
+        return QuestionFrame(repository);
       },
-      future: collection.getAllQuestions(),
+      future: repository.getAllQuestions(),
     ));
   }
 }

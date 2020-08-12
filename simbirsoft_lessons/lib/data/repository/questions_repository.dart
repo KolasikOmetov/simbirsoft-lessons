@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:simbirsoft_lessons/model/question.dart';
-import 'package:simbirsoft_lessons/network/questions.dart';
-import 'package:simbirsoft_lessons/network/rest_client.dart';
+import 'package:simbirsoft_lessons/data/model/question.dart';
+import 'package:simbirsoft_lessons/data/network/questions.dart';
+import 'package:simbirsoft_lessons/data/network/rest_client.dart';
 
-class QuestionsCollection {
+class QuestionsRepository {
   Dio _dio;
   RestClient _restClient;
   List<Question> allQ;
@@ -13,24 +13,19 @@ class QuestionsCollection {
   Future<Questions> _mediumQ;
   Future<Questions> _hardQ;
 
-  QuestionsCollection() {
+  QuestionsRepository() {
     _dio = Dio();
     _restClient = RestClient(_dio);
     _getAllQ();
   }
 
   void _getAllQ() async {
-    try {
       _easyQ = _restClient.getEasyQuestions();
       _mediumQ = _restClient.getMediumQuestions();
       _hardQ = _restClient.getHardQuestions();
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-    }
   }
 
-  Future<List<Question>> _addToAllQ(Future<Questions> question) async {
-    Questions questions = await question;
+  List<Question> _addToAllQ(Questions questions) {
     List<Question> allQ = List<Question>();
     for (var item in questions.results) {
       int amountAnswers = item.incorrectAnswers.length + 1;
@@ -67,7 +62,9 @@ class QuestionsCollection {
   }
 
   Future<List<Question>> getAllQuestions() async {
-    allQ = await _addToAllQ(_easyQ)..addAll(await _addToAllQ(_mediumQ))..addAll(await _addToAllQ(_hardQ));
-    return allQ;
+    return Future.wait([_easyQ, _mediumQ, _hardQ]).then((res) =>
+        _addToAllQ(res[0])
+          ..addAll(_addToAllQ(res[1]))
+          ..addAll(_addToAllQ(res[2])));
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:simbirsoft_lessons/network/questions_collection.dart';
+import 'package:simbirsoft_lessons/data/repository/questions_repository.dart';
 import 'package:simbirsoft_lessons/score_screen/score_screen.dart';
 import 'next_button.dart';
 import 'progress_bar.dart';
 import 'question_box.dart';
 
 class QuestionFrame extends StatefulWidget {
-  final QuestionsCollection _collection;
+  final QuestionsRepository _collection;
 
   QuestionFrame(this._collection);
 

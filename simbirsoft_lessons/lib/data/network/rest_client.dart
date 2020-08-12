@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:simbirsoft_lessons/network/questions.dart';
+import 'package:simbirsoft_lessons/data/network/questions.dart';
 
-part 'api.g.dart';
+part 'rest_client.g.dart';
 
 @RestApi(baseUrl: "https://opentdb.com/")
 abstract class RestClient {
-  factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
+  factory RestClient(Dio dio, {String baseUrl}) = _$RestClient;
 
   @GET("/api.php?amount=5&category=15&difficulty=easy&type=multiple")
   Future<Questions> getEasyQuestions();
