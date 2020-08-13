@@ -14,7 +14,7 @@ class App extends StatelessWidget {
         textTheme: TextTheme(
           caption: TextStyle(fontSize: 10, color: Colors.white),
           headline1:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+               TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
           headline3: TextStyle(color: Colors.white),
           headline5: TextStyle(color: Colors.yellow, fontSize: 25),
           headline6: TextStyle(color: Colors.white, fontSize: 20),

@@ -20,23 +20,23 @@ class QuestionsRepository {
   }
 
   void _getAllQ() async {
-      _easyQ = _restClient.getEasyQuestions();
-      _mediumQ = _restClient.getMediumQuestions();
-      _hardQ = _restClient.getHardQuestions();
+    _easyQ = _restClient.getEasyQuestions();
+    _mediumQ = _restClient.getMediumQuestions();
+    _hardQ = _restClient.getHardQuestions();
   }
 
   List<Question> _addToAllQ(Questions questions) {
     List<Question> allQ = List<Question>();
     for (var item in questions.results) {
-      int amountAnswers = item.incorrectAnswers.length + 1;
+      int amountAnswers = item.incorrect_answers.length + 1;
       int rightAnswerNum = 1 + Random().nextInt(amountAnswers);
       List<String> answers = List<String>();
       for (int i = 0, bias = 0; i < amountAnswers; i++) {
         if (i == rightAnswerNum - 1) {
-          answers.add(item.correctAnswer);
+          answers.add(item.correct_answer);
           bias++;
         } else {
-          answers.add(item.incorrectAnswers[i - bias]);
+          answers.add(item.incorrect_answers[i - bias]);
         }
       }
       allQ.add(Question(
@@ -62,9 +62,11 @@ class QuestionsRepository {
   }
 
   Future<List<Question>> getAllQuestions() async {
-    return Future.wait([_easyQ, _mediumQ, _hardQ]).then((res) =>
-        _addToAllQ(res[0])
-          ..addAll(_addToAllQ(res[1]))
-          ..addAll(_addToAllQ(res[2])));
+    return await Future.wait([_easyQ, _mediumQ, _hardQ]).then((res) {
+      allQ = _addToAllQ(res[0])
+        ..addAll(_addToAllQ(res[1]))
+        ..addAll(_addToAllQ(res[2]));
+      return allQ;
+    });
   }
 }

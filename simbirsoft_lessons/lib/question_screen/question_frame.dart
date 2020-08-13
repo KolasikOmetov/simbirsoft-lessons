@@ -86,11 +86,11 @@ class _QuestionFrameState extends State<QuestionFrame> {
                   refresh,
                   progressAnimation,
                   setProgressTimer),
-              flex: 8,
+              flex: 6,
             ),
             Expanded(
               child: NextButton(checkAnswer),
-              flex: 2,
+              flex: 1,
             )
           ],
         ));

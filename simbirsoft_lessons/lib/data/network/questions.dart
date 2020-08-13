@@ -2,7 +2,7 @@ import 'package:simbirsoft_lessons/data/network/result.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'questions.g.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable()
 class Questions {
   int responseCode;
   List<Result> results;

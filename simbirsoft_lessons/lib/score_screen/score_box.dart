@@ -19,10 +19,10 @@ class ScoreBox extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-                flex: 2,
+                flex: 1,
                 child: Center(
                     child: Text("Current Score",
-                        style: Theme.of(context).textTheme.headline3))),
+                        style: Theme.of(context).textTheme.headline4))),
             Expanded(
                 flex: 2,
                 child: Center(

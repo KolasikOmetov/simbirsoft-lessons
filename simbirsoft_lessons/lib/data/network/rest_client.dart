@@ -6,7 +6,7 @@ part 'rest_client.g.dart';
 
 @RestApi(baseUrl: "https://opentdb.com/")
 abstract class RestClient {
-  factory RestClient(Dio dio, {String baseUrl}) = _$RestClient;
+  factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET("/api.php?amount=5&category=15&difficulty=easy&type=multiple")
   Future<Questions> getEasyQuestions();
