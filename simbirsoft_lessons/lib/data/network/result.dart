@@ -5,7 +5,7 @@ part 'result.g.dart';
 class Result {
   String category;
   String type;
-  String difficulty;
+  Difficulty difficulty;
   String question;
   String correct_answer;
   List<String> incorrect_answers;
@@ -21,3 +21,5 @@ class Result {
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
   Map<String, dynamic> toJson() => _$ResultToJson(this);
 }
+
+enum Difficulty {Easy, Medium, Hard}

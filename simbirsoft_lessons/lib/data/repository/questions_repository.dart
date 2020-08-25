@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:simbirsoft_lessons/data/model/question.dart';
 import 'package:simbirsoft_lessons/data/network/questions.dart';
 import 'package:simbirsoft_lessons/data/network/rest_client.dart';
+import 'package:simbirsoft_lessons/data/network/result.dart';
 
 class QuestionsRepository {
   Dio _dio;
@@ -49,13 +50,13 @@ class QuestionsRepository {
     return allQ;
   }
 
-  int _getDifficalty(String difficalty) {
+  int _getDifficalty(Difficulty difficalty) {
     switch (difficalty) {
-      case 'easy':
+      case Difficulty.Easy:
         return 1;
-      case 'medium':
+      case Difficulty.Medium:
         return 2;
-      case 'hard':
+      case Difficulty.Hard:
         return 3;
     }
     return 0;
