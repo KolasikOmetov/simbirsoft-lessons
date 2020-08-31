@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/chosen_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/chosen_logic.dart';
 
 class AnswerBox extends StatefulWidget {
   final String answer;
   final int number;
-  final int numChosen;
-  final Function(int) setGlobalChosen;
+  final Function refreshAnswers;
 
-  AnswerBox(
-      {@required this.answer,
-      this.number,
-      this.numChosen,
-      this.setGlobalChosen});
+  AnswerBox({@required this.answer, this.number, this.refreshAnswers});
 
   @override
   _AnswerBoxState createState() => _AnswerBoxState();
@@ -19,10 +17,15 @@ class AnswerBox extends StatefulWidget {
 class _AnswerBoxState extends State<AnswerBox> {
   @override
   Widget build(BuildContext context) {
-    bool isChosen = widget.number == widget.numChosen;
+    bool isChosen =
+        widget.number == BlocProvider.of<ChosenBloc>(context).state.chosen;
     return GestureDetector(
       onTap: () {
-        widget.setGlobalChosen(widget.number);
+        if (!isChosen) {
+          BlocProvider.of<ChosenBloc>(context)
+              .add(ChosenEventChange(widget.number));
+          widget.refreshAnswers();
+        }
       },
       child: Container(
         decoration: BoxDecoration(

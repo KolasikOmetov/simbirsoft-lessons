@@ -3,7 +3,7 @@ import 'package:simbirsoft_lessons/question_screen/circle_timer.dart';
 
 class Clock extends StatefulWidget {
   final int time;
-  final Function refresh;
+  final Function(BuildContext) refresh;
   final Function(double) setProgress;
   final double progressAnimation;
 
@@ -35,7 +35,7 @@ class _ClockState extends State<Clock> with TickerProviderStateMixin {
           TickerFuture progress = controller.forward();
           widget.setProgress(controller.value);
           progress.whenComplete(() {
-            widget.refresh();
+            widget.refresh(this.context);
             widget.setProgress(0);
           });
           return CustomPaint(painter: CircleTimer(animation: controller));

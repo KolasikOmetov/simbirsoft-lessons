@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
-  final Function() checkAnswer;
+  final Function(BuildContext) checkAnswer;
 
   NextButton(this.checkAnswer);
 
@@ -22,7 +22,7 @@ class NextButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        checkAnswer();
+        checkAnswer(context);
       },
     );
   }

@@ -1,12 +1,23 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/bloc/chosen_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/chosen_logic.dart';
+import 'package:simbirsoft_lessons/bloc/score_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/score_logic.dart';
+import 'package:simbirsoft_lessons/data/model/question.dart';
 import 'package:simbirsoft_lessons/data/repository/questions_repository.dart';
 import 'package:simbirsoft_lessons/score_screen/score_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'next_button.dart';
 import 'progress_bar.dart';
 import 'question_box.dart';
 
 class QuestionFrame extends StatefulWidget {
   final QuestionsRepository _collection;
+
+  UnmodifiableListView<Question> get allQ =>
+      UnmodifiableListView(_collection.allQ);
 
   QuestionFrame(this._collection);
 
@@ -16,8 +27,6 @@ class QuestionFrame extends StatefulWidget {
 
 class _QuestionFrameState extends State<QuestionFrame> {
   int curQuest = 0;
-  int curScore = 0;
-  int numChosen = -1;
   double progressAnimation = 0;
 
   int getMaxScore() {
@@ -28,38 +37,33 @@ class _QuestionFrameState extends State<QuestionFrame> {
     return maxScore;
   }
 
-  void refresh() {
-    if (curQuest < widget._collection.allQ.length - 1) {
+  void refresh(BuildContext context) {
+    if (curQuest < widget.allQ.length - 1) {
       setProgressTimer(0);
       setState(() {
         curQuest++;
-        numChosen = -1;
+        BlocProvider.of<ChosenBloc>(context).add(ChosenEventChange(-1));
       });
     } else {
       Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => ScoreScreen(curScore, getMaxScore()),
-        ),
+        MaterialPageRoute(builder: (context) {
+          final state = BlocProvider.of<ScoreBloc>(this.context).state;
+          return ScoreScreen(state.curScore, getMaxScore());
+        }),
       );
     }
   }
 
-  void setGlobalChosen(int number) {
-    if (number != numChosen) {
-      setState(() {
-        numChosen = number;
-      });
-    }
-  }
-
-  void checkAnswer() {
-    if (numChosen == -1) {
+  void checkAnswer(BuildContext context) {
+    if (BlocProvider.of<ChosenBloc>(context).state.chosen == -1) {
       return;
     }
-    if (numChosen + 1 == widget._collection.allQ[curQuest].rightAnswerNum) {
-      curScore += widget._collection.allQ[curQuest].difficalty * 5;
+    if (BlocProvider.of<ChosenBloc>(context).state.chosen + 1 ==
+        widget.allQ[curQuest].rightAnswerNum) {
+      BlocProvider.of<ScoreBloc>(context)
+          .add(ScoreEventIncrement(widget.allQ[curQuest].difficalty * 5));
     }
-    refresh();
+    refresh(context);
   }
 
   void setProgressTimer(double val) {
@@ -68,31 +72,31 @@ class _QuestionFrameState extends State<QuestionFrame> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ProgressBar(curScore, getMaxScore()),
-              flex: 1,
-            ),
-            Expanded(
-              child: QuestionBox(
-                  widget._collection.allQ[curQuest],
-                  curQuest,
-                  widget._collection.allQ.length,
-                  setGlobalChosen,
-                  numChosen,
-                  refresh,
-                  progressAnimation,
-                  setProgressTimer),
-              flex: 6,
-            ),
-            Expanded(
-              child: NextButton(checkAnswer),
-              flex: 1,
-            )
-          ],
-        ));
+    return BlocProvider(
+        create: (BuildContext context) => ChosenBloc(),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                    child: ProgressBar(
+                        BlocProvider.of<ScoreBloc>(context).state.curScore,
+                        getMaxScore())),
+                Expanded(
+                  child: QuestionBox(
+                      widget.allQ[curQuest],
+                      curQuest,
+                      widget.allQ.length,
+                      refresh,
+                      progressAnimation,
+                      setProgressTimer),
+                  flex: 6,
+                ),
+                Expanded(
+                  child: NextButton(checkAnswer),
+                  flex: 1,
+                )
+              ],
+            )));
   }
 }

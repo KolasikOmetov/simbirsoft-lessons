@@ -9,14 +9,12 @@ class QuestionBox extends StatelessWidget {
   final Question question;
   final int curQuest;
   final int amount;
-  final int numChosen;
-  final Function(int) setGlobalChosen;
-  final Function refresh;
+  final Function(BuildContext) refresh;
   final double progressAnimation;
   final Function(double) setProgress;
 
-  QuestionBox(this.question, this.curQuest, this.amount, this.setGlobalChosen,
-      this.numChosen, this.refresh, this.progressAnimation, this.setProgress);
+  QuestionBox(this.question, this.curQuest, this.amount, this.refresh,
+      this.progressAnimation, this.setProgress);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +39,7 @@ class QuestionBox extends StatelessWidget {
           flex: 2,
         ),
         Expanded(
-          child: QAnswers(question.answers, setGlobalChosen, numChosen),
+          child: QAnswers(question.answers),
           flex: 5,
         )
       ],

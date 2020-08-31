@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:simbirsoft_lessons/data/repository/questions_repository.dart';
 import 'package:simbirsoft_lessons/question_screen/question_frame.dart';
+import 'package:simbirsoft_lessons/bloc/score_bloc.dart';
 
 class QuestionScreen extends StatefulWidget {
   @override
@@ -15,6 +17,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   final QuestionsRepository repository = QuestionsRepository();
+  final _scoreBloc = ScoreBloc();
+
+  @override
+  void dispose() {
+    _scoreBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
           return Center(
               child: CircularProgressIndicator(backgroundColor: Colors.yellow));
         }
-        return QuestionFrame(repository);
+        return BlocProvider(
+          create: (BuildContext context) => _scoreBloc,
+          child: QuestionFrame(repository),
+        );
       },
       future: repository.getAllQuestions(),
     ));
