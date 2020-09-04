@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/bloc/question_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/question_logic.dart';
 
 class NextButton extends StatelessWidget {
-  final Function(BuildContext) checkAnswer;
-
-  NextButton(this.checkAnswer);
+  final BaseState state;
+  NextButton(this.state);
 
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,7 +24,13 @@ class NextButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        checkAnswer(context);
+        if (state.chosen == -1) {
+          return;
+        }
+        BlocProvider.of<QuestionBloc>(context)
+                .add(CheckQuestionEvent(state));
+        BlocProvider.of<QuestionBloc>(context)
+                .add(RefreshQuestionEvent(context, state));
       },
     );
   }
