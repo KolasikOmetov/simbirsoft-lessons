@@ -28,9 +28,7 @@ class NextButton extends StatelessWidget {
           return;
         }
         BlocProvider.of<QuestionBloc>(context)
-                .add(CheckQuestionEvent(state));
-        BlocProvider.of<QuestionBloc>(context)
-                .add(RefreshQuestionEvent(context, state));
+            .add(CheckQuestionEvent(state, context));
       },
     );
   }

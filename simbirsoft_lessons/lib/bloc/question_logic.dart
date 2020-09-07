@@ -16,12 +16,13 @@ class ErrorState extends QuestionState {
 
 class BaseState extends QuestionState {
   final UnmodifiableListView<Question> allQ;
-  int curQuest = 0;
-  int chosen = -1;
-  int curScore = 0;
+  int curQuest;
+  int chosen;
+  int curScore;
   int get maxScore => getMaxScore();
+  double progressAnimation = 0;
 
-  BaseState(curQuest, chosen, curScore, {@required this.allQ});
+  BaseState(this.curQuest, this.chosen, this.curScore, {@required this.allQ, this.progressAnimation = 0});
 
   int getMaxScore() {
     int maxScore = 0;
@@ -48,9 +49,10 @@ class RefreshQuestionEvent extends QuestionEvent {
 }
 
 class CheckQuestionEvent extends QuestionEvent {
+  BuildContext context;
   BaseState state;
 
-  CheckQuestionEvent(this.state);
+  CheckQuestionEvent(this.state, this.context);
 }
 
 class ChooseQuestionEvent extends QuestionEvent {

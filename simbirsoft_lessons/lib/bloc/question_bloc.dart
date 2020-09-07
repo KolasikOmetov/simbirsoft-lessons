@@ -11,6 +11,7 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
 
   @override
   Stream<QuestionState> mapEventToState(QuestionEvent event) async* {
+    // LoadingQuestionEvent
     if (event is LoadingQuestionEvent) {
       try {
         await event.repository.getAllQuestions();
@@ -20,8 +21,9 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
       }
       yield BaseState(0, -1, 0,
           allQ: UnmodifiableListView(event.repository.allQ));
-    } else if (event is RefreshQuestionEvent) {
-      print("RefreshQuestionEvent");
+    } else
+    // RefreshQuestionEvent
+    if (event is RefreshQuestionEvent) {
       BaseState state = event.state;
       if (state.curQuest < state.allQ.length - 1) {
         yield BaseState(state.curQuest + 1, -1, state.curScore,
@@ -33,20 +35,30 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
                   ScoreScreen(state.curScore, state.maxScore)),
         );
       }
-    } else if (event is CheckQuestionEvent) {
+    } else
+    // CheckQuestionEvent
+    if (event is CheckQuestionEvent) {
       var state = event.state;
-      print("CheckQuestionEvent");
       if (state.chosen + 1 == state.allQ[state.curQuest].rightAnswerNum) {
-        yield BaseState(state.curQuest, state.chosen,
-            state.curScore + state.allQ[state.curQuest].difficalty * 5,
-            allQ: state.allQ);
+        state.curScore = state.curScore + state.allQ[state.curQuest].difficalty * 5;
       }
-    } else if (event is ChooseQuestionEvent) {
+      if (state.curQuest < state.allQ.length - 1) {
+        yield BaseState(state.curQuest + 1, -1, state.curScore,
+            allQ: state.allQ);
+      } else {
+        Navigator.of(event.context).push(
+          MaterialPageRoute(
+              builder: (context) =>
+                  ScoreScreen(state.curScore, state.maxScore)),
+        );
+      }
+    } else
+    // ChooseQuestionEvent
+    if (event is ChooseQuestionEvent) {
       var state = event.state;
       print("ChooseQuestionEvent");
-      yield BaseState(state.curQuest, event.chosen,
-            state.curScore,
-            allQ: state.allQ);
+      yield BaseState(state.curQuest, event.chosen, state.curScore,
+          allQ: state.allQ);
     } else {
       throw UnimplementedError();
     }
