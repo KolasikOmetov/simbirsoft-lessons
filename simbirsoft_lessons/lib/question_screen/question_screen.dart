@@ -31,61 +31,62 @@ class _QuestionScreenState extends State<QuestionScreen> {
     bloc.close();
   }
 
-  final QuestionsRepository repository = QuestionsRepository();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocProvider(
-            create: (BuildContext context) => bloc,
-            child: BlocBuilder<QuestionBloc, QuestionState>(
-              cubit: bloc,
-              builder: (context, state) {
-                if (state is LoadingState) {
-                  bloc
-                      .add(LoadingQuestionEvent(repository));
-                  return Center(
-                      child: CircularProgressIndicator(
-                          backgroundColor: Colors.yellow));
-                } else if (state is ErrorState) {
-                  return Center(
-                      child: Column(
-                    children: [
-                      Text("Network error!"),
-                      Text(state.exception.toString()),
-                      GestureDetector(
-                        child: Text(
-                          "Try again",
-                          style: TextStyle(
-                              backgroundColor: Theme.of(context).accentColor),
-                        ),
-                        onTap: () => bloc
-                            .add(LoadingQuestionEvent(repository)),
-                      )
-                    ],
-                  ));
-                } else if (state is BaseState) {
-                  return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                              child:
-                                  ProgressBar(state.curScore, state.maxScore)),
-                          Expanded(
-                            child: QuestionBox(progressAnimation, setProgressTimer),
-                            flex: 6,
+        body: SafeArea(
+                  child: BlocProvider(
+              create: (BuildContext context) => bloc,
+              child: BlocBuilder<QuestionBloc, QuestionState>(
+                cubit: bloc,
+                builder: (context, state) {
+                  if (state is LoadingState) {
+                    bloc
+                        .add(LoadingQuestionEvent(QuestionsRepository()));
+                    return Center(
+                        child: CircularProgressIndicator(
+                            backgroundColor: Colors.yellow));
+                  } else if (state is ErrorState) {
+                    return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Network error!"),
+                        Text(state.exception.toString()),
+                        GestureDetector(
+                          child: Text(
+                            "Try again",
+                            style: TextStyle(
+                                backgroundColor: Theme.of(context).accentColor),
                           ),
-                          Expanded(
-                            child: NextButton(state, setProgressTimer),
-                            flex: 1,
-                          )
-                        ],
-                      ));
-                } else {
-                  throw UnimplementedError();
-                }
-              },
-            )));
+                          onTap: () => bloc
+                        .add(ReloadingQuestionEvent()),
+                        )
+                      ],
+                    ));
+                  } else if (state is BaseState) {
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                                child:
+                                    ProgressBar(state.curScore, state.maxScore)),
+                            Expanded(
+                              child: QuestionBox(progressAnimation, setProgressTimer),
+                              flex: 6,
+                            ),
+                            Expanded(
+                              child: NextButton(state, setProgressTimer),
+                              flex: 1,
+                            )
+                          ],
+                        ));
+                  } else {
+                    throw UnimplementedError();
+                  }
+                },
+              )),
+        ));
   }
 }

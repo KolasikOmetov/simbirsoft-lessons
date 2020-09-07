@@ -22,6 +22,10 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
       yield BaseState(0, -1, 0,
           allQ: UnmodifiableListView(event.repository.allQ));
     } else
+    // ReloadingQuestionEvent
+    if (event is ReloadingQuestionEvent) {
+      yield LoadingState();
+    } else
     // RefreshQuestionEvent
     if (event is RefreshQuestionEvent) {
       BaseState state = event.state;

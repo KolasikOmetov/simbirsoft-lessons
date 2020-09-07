@@ -40,6 +40,8 @@ class LoadingQuestionEvent extends QuestionEvent {
   LoadingQuestionEvent(this.repository);
 }
 
+class ReloadingQuestionEvent extends QuestionEvent {}
+
 class RefreshQuestionEvent extends QuestionEvent {
   BaseState state;
   final BuildContext context;
