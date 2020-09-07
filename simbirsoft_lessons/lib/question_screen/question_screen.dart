@@ -77,7 +77,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                             flex: 6,
                           ),
                           Expanded(
-                            child: NextButton(state),
+                            child: NextButton(state, setProgressTimer),
                             flex: 1,
                           )
                         ],

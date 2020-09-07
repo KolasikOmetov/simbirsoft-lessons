@@ -20,9 +20,8 @@ class BaseState extends QuestionState {
   int chosen;
   int curScore;
   int get maxScore => getMaxScore();
-  double progressAnimation = 0;
 
-  BaseState(this.curQuest, this.chosen, this.curScore, {@required this.allQ, this.progressAnimation = 0});
+  BaseState(this.curQuest, this.chosen, this.curScore, {@required this.allQ});
 
   int getMaxScore() {
     int maxScore = 0;
