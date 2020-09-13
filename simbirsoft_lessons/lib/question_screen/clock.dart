@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/bloc/question_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/question_logic.dart';
 import 'package:simbirsoft_lessons/question_screen/circle_timer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Clock extends StatefulWidget {
   final int time;
-  final Function refresh;
   final Function(double) setProgress;
   final double progressAnimation;
 
-  Clock(this.time, this.refresh, this.progressAnimation, this.setProgress);
+  Clock(this.time, this.progressAnimation, this.setProgress);
 
   @override
   _ClockState createState() => _ClockState();
@@ -35,7 +37,8 @@ class _ClockState extends State<Clock> with TickerProviderStateMixin {
           TickerFuture progress = controller.forward();
           widget.setProgress(controller.value);
           progress.whenComplete(() {
-            widget.refresh();
+            BlocProvider.of<QuestionBloc>(context)
+                .add(RefreshQuestionEvent(context, BlocProvider.of<QuestionBloc>(context).state));
             widget.setProgress(0);
           });
           return CustomPaint(painter: CircleTimer(animation: controller));

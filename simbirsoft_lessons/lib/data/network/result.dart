@@ -7,7 +7,9 @@ class Result {
   String type;
   Difficulty difficulty;
   String question;
+  // ignore: non_constant_identifier_names
   String correct_answer;
+  // ignore: non_constant_identifier_names
   List<String> incorrect_answers;
 
   Result(
@@ -15,7 +17,9 @@ class Result {
       this.type,
       this.difficulty,
       this.question,
+      // ignore: non_constant_identifier_names
       this.correct_answer,
+      // ignore: non_constant_identifier_names
       this.incorrect_answers});
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);

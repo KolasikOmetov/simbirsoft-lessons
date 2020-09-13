@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/question_bloc.dart';
+import 'package:simbirsoft_lessons/bloc/question_logic.dart';
 
 class AnswerBox extends StatefulWidget {
   final String answer;
   final int number;
-  final int numChosen;
-  final Function(int) setGlobalChosen;
 
-  AnswerBox(
-      {@required this.answer,
-      this.number,
-      this.numChosen,
-      this.setGlobalChosen});
+  AnswerBox({@required this.answer, this.number});
 
   @override
   _AnswerBoxState createState() => _AnswerBoxState();
@@ -19,10 +16,14 @@ class AnswerBox extends StatefulWidget {
 class _AnswerBoxState extends State<AnswerBox> {
   @override
   Widget build(BuildContext context) {
-    bool isChosen = widget.number == widget.numChosen;
+    BaseState state = BlocProvider.of<QuestionBloc>(context).state;
+    bool isChosen = widget.number == state.chosen;
     return GestureDetector(
       onTap: () {
-        widget.setGlobalChosen(widget.number);
+        if (!isChosen) {
+          BlocProvider.of<QuestionBloc>(context)
+              .add(ChooseQuestionEvent(state, widget.number));
+        }
       },
       child: Container(
         decoration: BoxDecoration(

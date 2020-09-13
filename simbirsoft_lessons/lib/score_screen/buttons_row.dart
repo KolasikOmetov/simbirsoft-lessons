@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/question_screen/question_screen.dart';
 
 class ButtonsRow extends StatelessWidget {
   @override
@@ -7,12 +8,20 @@ class ButtonsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
+        buttonIcon(
+          context,
+          iColor: Colors.white,
+          iData: Icons.arrow_back,
+          color: Colors.red[600],
+        ),
         buttonIcon(context,
             iColor: Colors.white,
-            iData: Icons.arrow_back,
-            color: Colors.red[600]),
-        buttonIcon(context,
-            iColor: Colors.white, iData: Icons.refresh, color: Colors.pink[400])
+            iData: Icons.refresh,
+            color: Colors.pink[400], fun: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => QuestionScreen()),
+          );
+        })
       ],
     );
   }
