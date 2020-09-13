@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'question_screen/question_screen.dart';
 
 class App extends StatelessWidget {
+  final injector;
+  App(this.injector);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,7 +25,7 @@ class App extends StatelessWidget {
           button: TextStyle(fontSize: 17, color: Colors.white),
         ),
       ),
-      home: SafeArea(child: QuestionScreen()),
+      home: SafeArea(child: QuestionScreen(injector)),
     );
   }
 }

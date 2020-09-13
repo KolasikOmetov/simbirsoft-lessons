@@ -5,6 +5,7 @@ import 'package:simbirsoft_lessons/data/model/question.dart';
 import 'package:simbirsoft_lessons/data/network/questions.dart';
 import 'package:simbirsoft_lessons/data/network/rest_client.dart';
 import 'package:simbirsoft_lessons/data/network/result.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
 
 class QuestionsRepository {
   Dio _dio;
@@ -14,8 +15,8 @@ class QuestionsRepository {
   Future<Questions> _mediumQ;
   Future<Questions> _hardQ;
 
-  QuestionsRepository() {
-    _dio = Dio();
+  QuestionsRepository(Injector injector) {
+    _dio = injector.get<Dio>(key: "DIO_MAIN");
     _restClient = RestClient(_dio);
     _getAllQ();
   }
