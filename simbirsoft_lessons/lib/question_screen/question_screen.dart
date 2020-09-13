@@ -9,6 +9,9 @@ import 'progress_bar.dart';
 import 'question_box.dart';
 
 class QuestionScreen extends StatefulWidget {
+  final injector;
+
+  QuestionScreen(this.injector);
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
 }
@@ -42,7 +45,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 builder: (context, state) {
                   if (state is LoadingState) {
                     bloc
-                        .add(LoadingQuestionEvent(QuestionsRepository()));
+                        .add(LoadingQuestionEvent(QuestionsRepository(widget.injector)));
                     return Center(
                         child: CircularProgressIndicator(
                             backgroundColor: Colors.yellow));
