@@ -4,19 +4,22 @@ import 'package:simbirsoft_lessons/bloc/question_bloc.dart';
 import 'package:simbirsoft_lessons/bloc/question_logic.dart';
 import 'package:simbirsoft_lessons/data/repository/questions_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
+import 'package:simbirsoft_lessons/di/injector_container.dart';
 import 'next_button.dart';
 import 'progress_bar.dart';
 import 'question_box.dart';
 
 class QuestionScreen extends StatefulWidget {
-  final injector;
 
-  QuestionScreen(this.injector);
+  QuestionScreen();
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+  final injector = InjectorContainer().initialise(Injector.getInjector());
+  
   double progressAnimation = 0;
   var bloc = QuestionBloc();
 
@@ -45,7 +48,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 builder: (context, state) {
                   if (state is LoadingState) {
                     bloc
-                        .add(LoadingQuestionEvent(QuestionsRepository(widget.injector)));
+                        .add(LoadingQuestionEvent(QuestionsRepository(injector)));
                     return Center(
                         child: CircularProgressIndicator(
                             backgroundColor: Colors.yellow));

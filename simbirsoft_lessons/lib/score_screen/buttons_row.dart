@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simbirsoft_lessons/question_screen/question_screen.dart';
 // import 'package:simbirsoft_lessons/question_screen/question_screen.dart';
 
 class ButtonsRow extends StatelessWidget {
@@ -18,9 +19,9 @@ class ButtonsRow extends StatelessWidget {
             iColor: Colors.white,
             iData: Icons.refresh,
             color: Colors.pink[400], fun: () {
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(builder: (context) => QuestionScreen(),
-          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => QuestionScreen(),
+          ));
         })
       ],
     );
